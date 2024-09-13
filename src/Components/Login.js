@@ -11,11 +11,11 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     const loggedin = JSON.parse(localStorage.getItem("user"));
-    if (input.name === loggedin.name && input.password === loggedin.password) {
+    if (input.email === loggedin.email && input.password === loggedin.password) {
       navigate("/");
     }
     else {
-      alert("invalid Email or Password");
+      alert("invalid name or Password");
     }
   }
   return (
@@ -24,13 +24,13 @@ const Login = () => {
       <form onSubmit={handleLogin} className="addUserForm">
         <div className="inputGroup">
           <input
-            type="name"
-            id="name"
-            name="name"
-            value={input.name}
+            type="email"
+            id="email"
+            name="email"
+            value={input.email}
             onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
             autoComplete="off"
-            placeholder="Enter your username"
+            placeholder="Enter your email"
           />
           <input
             type="password"

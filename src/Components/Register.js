@@ -7,14 +7,41 @@ const Register = () => {
         name: "",
         email: "",
         password: "",
-        confirmpassword:"",
+        confirmpassword: "",
         state: "",
         country: "",
         address: "",
     })
+    const [errors, setErrors] = useState({})
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
+        const validationErrors = {}
+        if (!input.name.trim()) {
+            validationErrors.name = "name is required"
+        }
+
+        if (!input.email.trim()) {
+            validationErrors.email = "email is required"
+        } else if (!/\S+@\S+\.\S+/.test(input.email)) {
+            validationErrors.email = "email is not valid"
+        }
+
+        if (!input.password.trim()) {
+            validationErrors.password = "password is required"
+        } else if (input.password.length < 6) {
+            validationErrors.password = "password should be at least 6 char"
+        }
+
+        if (input.confirmpassword !== input.password) {
+            validationErrors.confirmpassword = "password not matched"
+        }
+
+        setErrors(validationErrors)
+
+        if (Object.keys(validationErrors).length === 0) {
+            alert("Form Submitted successfully")
+        }
         localStorage.setItem("user", JSON.stringify(input));
         navigate("/login");
     }
@@ -24,24 +51,30 @@ const Register = () => {
             <h3>Register Page</h3>
             <form onSubmit={handleSubmit} className="addUserForm">
                 <div className="inputGroup">
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={input.name}
-                        onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
-                        autoComplete="off"
-                        placeholder="Enter your name"
-                    />
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={input.email}
-                        onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
-                        placeholder="Enter your Email"
-                    />
-                    <input
+                    <div>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={input.name}
+                            onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
+                            autoComplete="off"
+                            placeholder="Enter your name"
+                        />
+                        {errors.name && <span>{errors.name}</span>}
+                    </div>
+                    <div>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={input.email}
+                            onChange={(e) => setInput({ ...input, [e.target.name]: e.target.value })}
+                            placeholder="Enter your Email"
+                        />
+                        {errors.email && <span>{errors.email}</span>}
+                    </div>
+                    <div><input
                         type="password"
                         id="password"
                         name="password"
@@ -50,7 +83,9 @@ const Register = () => {
                         autoComplete="off"
                         placeholder="Enter Password"
                     />
-                    <input
+                        {errors.password && <span>{errors.password}</span>}
+                    </div>
+                    <div> <input
                         type="password"
                         id="confirmpassword"
                         name="confirmpassword"
@@ -59,7 +94,9 @@ const Register = () => {
                         autoComplete="off"
                         placeholder="Enter confirm password"
                     />
-                    <input
+                        {errors.confirmpassword && <span>{errors.confirmpassword}</span>}
+                    </div>
+                    <div> <input
                         type="text"
                         id="state"
                         name="state"
@@ -68,7 +105,9 @@ const Register = () => {
                         autoComplete="off"
                         placeholder="Enter state"
                     />
-                    <input
+                        {errors.username && <span>{errors.username}</span>}
+                    </div>
+                    <div>  <input
                         type="text"
                         id="country"
                         name="country"
@@ -77,7 +116,9 @@ const Register = () => {
                         autoComplete="off"
                         placeholder="Enter country"
                     />
-                    <input
+                        {errors.username && <span>{errors.username}</span>}
+                    </div>
+                    <div> <input
                         type="text"
                         id="address"
                         name="address"
@@ -86,6 +127,8 @@ const Register = () => {
                         autoComplete="off"
                         placeholder="Enter address"
                     />
+                        {errors.username && <span>{errors.username}</span>}
+                    </div>
                     <button type="submit" class="btn btn-success">
                         Sign Up
                     </button>
