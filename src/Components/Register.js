@@ -17,29 +17,29 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const validationErrors = {}
-        if (!input.name.trim()) {
+        if(!input.name.trim()) {
             validationErrors.name = "name is required"
         }
-
-        if (!input.email.trim()) {
+    
+        if(!input.email.trim()) {
             validationErrors.email = "email is required"
-        } else if (!/\S+@\S+\.\S+/.test(input.email)) {
+        } else if(!/\S+@\S+\.\S+/.test(input.email)){
             validationErrors.email = "email is not valid"
         }
-
-        if (!input.password.trim()) {
+    
+        if(!input.password.trim()) {
             validationErrors.password = "password is required"
-        } else if (input.password.length < 6) {
+        } else if(input.password.length < 6){
             validationErrors.password = "password should be at least 6 char"
         }
-
-        if (input.confirmpassword !== input.password) {
+    
+        if(input.confirmpassword !== input.password) {
             validationErrors.confirmpassword = "password not matched"
         }
-
+    
         setErrors(validationErrors)
-
-        if (Object.keys(validationErrors).length === 0) {
+    
+        if(Object.keys(validationErrors).length === 0) {
             alert("Form Submitted successfully")
         }
         localStorage.setItem("user", JSON.stringify(input));
@@ -105,7 +105,7 @@ const Register = () => {
                         autoComplete="off"
                         placeholder="Enter state"
                     />
-                        {errors.username && <span>{errors.username}</span>}
+                        {errors.name && <span>{errors.name}</span>}
                     </div>
                     <div>  <input
                         type="text"
@@ -116,7 +116,7 @@ const Register = () => {
                         autoComplete="off"
                         placeholder="Enter country"
                     />
-                        {errors.username && <span>{errors.username}</span>}
+                        {errors.name && <span>{errors.name}</span>}
                     </div>
                     <div> <input
                         type="text"
@@ -127,7 +127,7 @@ const Register = () => {
                         autoComplete="off"
                         placeholder="Enter address"
                     />
-                        {errors.username && <span>{errors.username}</span>}
+                        {errors.name && <span>{errors.name}</span>}
                     </div>
                     <button type="submit" class="btn btn-success">
                         Sign Up
